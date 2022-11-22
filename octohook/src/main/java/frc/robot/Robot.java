@@ -36,13 +36,7 @@ public class Robot extends TimedRobot {
   //Control
   XboxController control1 = new XboxController(0);
 
-  //Motores
-  public TalonSRX motorFrontRight = new TalonSRX(7);
-  public TalonSRX motorBackRight = new TalonSRX(14);
-  public TalonSRX motorFrontLeft = new TalonSRX(5);
-  public TalonSRX motorBackLeft = new TalonSRX(8);
 
-  public TalonSRX motortest = new TalonSRX(5);
 
 
   //Variables
