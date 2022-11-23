@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import frc.robot.subsystems.Intake;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -29,12 +29,17 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
   
+//Subsistemas
+Intake mIntake = new Intake();
+
   //NeumÃ¡tica
   Compressor compressor1 = new Compressor(0,PneumaticsModuleType.CTREPCM); //creas el objeto compresor para poder usarlo
   public final Solenoid piston1 = new Solenoid(PneumaticsModuleType.CTREPCM, 0); //declaracion del piston
   
   //Control
   public XboxController control1 = new XboxController(0);
+
+  
 
 
 
@@ -56,6 +61,7 @@ public class Robot extends TimedRobot {
   double finalBR = 0;
   double finalFL = 0;
   double finalBL = 0;
+  boolean button = control1.getRawButton(4);
 
 
   //Constante de velocidad aditiva
@@ -139,6 +145,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
+
+    mIntake.mIntake(button);
     double motores = (control1.getRawAxis(1));
     double turn = (control1.getRawAxis(4));
     
