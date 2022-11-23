@@ -19,8 +19,8 @@ public class Intake extends SubsystemBase{
     
     public Intake() { }
 
-    public void mIntake(){
-        boolean Intake = control1.getRawButton(4);
+    public void mIntake(boolean getButton){
+        boolean Intake = getButton;
 
         if(Intake == true){
             intake1.set(ControlMode.PercentOutput,Constants.intakeSpeed);
