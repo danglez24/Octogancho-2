@@ -34,7 +34,7 @@ public class Robot extends TimedRobot {
   public final Solenoid piston1 = new Solenoid(PneumaticsModuleType.CTREPCM, 0); //declaracion del piston
   
   //Control
-  XboxController control1 = new XboxController(0);
+  public XboxController control1 = new XboxController(0);
 
 
 

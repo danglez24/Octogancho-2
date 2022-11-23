@@ -13,8 +13,13 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    int FRconstant = 1;
-    int BRconstant = 2;
-    int FLconstant = 3;
-    int BLconstant = 4;
+    public static final int FRconstant = 1;
+    public static final int BRconstant = 2;
+    public static final int FLconstant = 3;
+    public static final int BLconstant = 4;
+    public static final int BALLSconstant = 5;
+    public static final int INT1constant = 6;
+    public static final int INT2constant = 7;
+
+    public static final double intakeSpeed = 0.5;
 }
