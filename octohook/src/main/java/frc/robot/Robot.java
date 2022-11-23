@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
+import frc.robot.subsystems.Drive;
 
 
 /**
@@ -28,13 +30,12 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  Drive Movement = new Drive()
   
   //NeumÃ¡tica
   Compressor compressor1 = new Compressor(0,PneumaticsModuleType.CTREPCM); //creas el objeto compresor para poder usarlo
   public final Solenoid piston1 = new Solenoid(PneumaticsModuleType.CTREPCM, 0); //declaracion del piston
   
-  //Control
-  public XboxController control1 = new XboxController(0);
 
 
 
@@ -44,22 +45,13 @@ public class Robot extends TimedRobot {
   boolean ePiston = false;
   double rightTurn = 0;
   double leftTurn = 0;
-  double turn = 0;
+  double speed = 0;
+  double getTurn = 0;
+
+ 
+
+
   
-
-  double motorFR = 0;
-  double motorBR = 0;
-  double motorFL = 0;
-  double motorBL = 0;
-
-  double finalFR = 0;
-  double finalBR = 0;
-  double finalFL = 0;
-  double finalBL = 0;
-
-
-  //Constante de velocidad aditiva
-  final double additiveSpeed = 0.04;
   
 
   
@@ -139,31 +131,11 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    double motores = (control1.getRawAxis(1));
-    double turn = (control1.getRawAxis(4));
-    
-    
-    
+    double speed = (Constants.control1.getRawAxis(1));
+    double getTurn = (Constants.control1.getRawAxis(4));
 
-    motorFR = speedRamp(motorFR, motores);
-    motorBR = speedRamp(motorFR, motores);
-    motorFL = speedRamp(motorFL, motores);
-    motorBL = speedRamp(motorBL, motores);
-
-    finalFR = (motorFR - turn);
-    finalBR = (motorBR - turn);
-    finalFL = (-motorFL + turn);
-    finalBL = (-motorBL + turn);
-    
-
-
-    motorFrontRight.set(ControlMode.PercentOutput, finalFR);
-    motorBackRight.set(ControlMode.PercentOutput, finalBR);
-    motorFrontLeft.set(ControlMode.PercentOutput, finalFL);
-    motorBackLeft.set(ControlMode.PercentOutput,  finalBL);
-    motortest.set(ControlMode.PercentOutput, 0);
-
-    ePiston = control1.getRawButton(3);
+    Movement.mDrive(speed, getTurn);
+    ePiston = Constants.control1.getRawButton(3);
 
     compressor1.enableDigital();
     piston1.set(ePiston);
@@ -173,11 +145,7 @@ public class Robot extends TimedRobot {
   
 
   }
-  double speedRamp (double currentSpeed, double targetSpeed){
-    if( Math.abs( (Math.abs(targetSpeed) - Math.abs(currentSpeed) ) ) < additiveSpeed) return targetSpeed;
-    if( currentSpeed < targetSpeed ) return currentSpeed + additiveSpeed;
-    else if( currentSpeed > targetSpeed ) return currentSpeed - additiveSpeed;
-    return 0;
+
   }
 
 //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
