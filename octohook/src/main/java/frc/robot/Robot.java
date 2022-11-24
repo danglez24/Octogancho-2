@@ -17,6 +17,8 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.Intake;
+
 
 
 /**
@@ -30,9 +32,14 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+
   Drive Movement = new Drive()
   
-  //NeumÃ¡tica
+
+  Intake mainIntake = new Intake();
+
+
+  //Neumatica
   Compressor compressor1 = new Compressor(0,PneumaticsModuleType.CTREPCM); //creas el objeto compresor para poder usarlo
   public final Solenoid piston1 = new Solenoid(PneumaticsModuleType.CTREPCM, 0); //declaracion del piston
   
@@ -43,8 +50,6 @@ public class Robot extends TimedRobot {
   //Variables
 
   boolean ePiston = false;
-  double rightTurn = 0;
-  double leftTurn = 0;
   double speed = 0;
   double getTurn = 0;
 
@@ -52,6 +57,16 @@ public class Robot extends TimedRobot {
 
 
   
+
+
+
+
+  boolean ButtonX = false;
+
+
+  //Constante de velocidad aditiva
+  
+
   
 
   
@@ -133,6 +148,13 @@ public class Robot extends TimedRobot {
 
     double speed = (Constants.control1.getRawAxis(1));
     double getTurn = (Constants.control1.getRawAxis(4));
+    boolean ButtonX = control1.getRawButton(4);
+
+    double motores = (control1.getRawAxis(1));
+    double turn = (control1.getRawAxis(4));
+    
+    mainIntake.mIntake(ButtonX);
+    
 
     Movement.mDrive(speed, getTurn);
     ePiston = Constants.control1.getRawButton(3);
