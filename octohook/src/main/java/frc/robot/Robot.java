@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
-
+import frc.robot.subsystems.ballIntake;
 
 
 /**
@@ -33,10 +33,13 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
 
 
-  Drive Movement = new Drive()
+  Drive Movement = new Drive();
   
 
   Intake mainIntake = new Intake();
+
+
+  ballIntake secIntake = new ballIntake();
 
 
   //Neumatica
@@ -58,7 +61,7 @@ public class Robot extends TimedRobot {
 
   
 
-
+  boolean ButtonA = false;
 
 
   boolean ButtonX = false;
@@ -146,15 +149,19 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    double speed = (Constants.control1.getRawAxis(1));
-    double getTurn = (Constants.control1.getRawAxis(4));
-    boolean ButtonX = control1.getRawButton(4);
+    double speed = Constants.control1.getRawAxis(1);
+    double getTurn = Constants.control1.getRawAxis(4);
+    boolean ButtonX = Constants.control1.getRawButton(4);
 
-    double motores = (control1.getRawAxis(1));
-    double turn = (control1.getRawAxis(4));
-    
+    double motores = Constants.control1.getRawAxis(1);
+    double turn = Constants.control1.getRawAxis(4);
+
+
+    ButtonX = Constants.control1.getRawButton(4); //Checar ids de los botones
     mainIntake.mIntake(ButtonX);
     
+    ButtonA = Constants.control1.getRawButton(1); //Asegurarnos de ver cuales botones vamos a usar
+    secIntake.mballIntake(ButtonA);
 
     Movement.mDrive(speed, getTurn);
     ePiston = Constants.control1.getRawButton(3);
@@ -162,13 +169,13 @@ public class Robot extends TimedRobot {
     compressor1.enableDigital();
     piston1.set(ePiston);
 
-//      49017534
+
 
   
 
   }
 
-  }
+  
 
 //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 

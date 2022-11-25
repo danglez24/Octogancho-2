@@ -22,4 +22,5 @@ public final class Constants {
     public static final int INT2constant = 7;
     public static final XboxController control1 = new XboxController(0);
     public static final double intakeSpeed = 0.5;
+    public static final double ballIntakeSpeed = 0.7;
 }
