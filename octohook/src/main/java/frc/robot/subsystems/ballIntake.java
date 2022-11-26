@@ -16,7 +16,7 @@ public class ballIntake extends SubsystemBase{
 
     XboxController control1 = new XboxController(0);
     
-    public ballIntake() { }
+    public ballIntake() {}
 
     public void mballIntake(boolean getButton){
         boolean secIntake = getButton;

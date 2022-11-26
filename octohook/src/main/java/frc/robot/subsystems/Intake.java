@@ -17,7 +17,7 @@ public class Intake extends SubsystemBase{
 
     XboxController control1 = new XboxController(0);
     
-    public Intake() { }
+    public Intake(){}
 
     public void mIntake(boolean getButton){
         boolean Intake = getButton;
