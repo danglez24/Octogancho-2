@@ -78,13 +78,17 @@ public class Drive extends SubsystemBase {
 
    
   }
+  private double speedRamp (double currentSpeed, double targetSpeed)
+  {
+    if( Math.abs( (Math.abs(targetSpeed) - Math.abs(currentSpeed) ) ) < additiveSpeed) return targetSpeed;
+    if( currentSpeed < targetSpeed ) return currentSpeed + additiveSpeed;
+    else if( currentSpeed > targetSpeed ) return currentSpeed - additiveSpeed;
+    return 0;
+  }
+
   @Override
   public void periodic() {
-    double speedRamp (double currentSpeed, double targetSpeed){
-      if( Math.abs( (Math.abs(targetSpeed) - Math.abs(currentSpeed) ) ) < additiveSpeed) return targetSpeed;
-      if( currentSpeed < targetSpeed ) return currentSpeed + additiveSpeed;
-      else if( currentSpeed > targetSpeed ) return currentSpeed - additiveSpeed;
-      return 0;
+   
     
   }
 

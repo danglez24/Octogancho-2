@@ -15,10 +15,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.ballIntake;
+
 
 
 /**
@@ -32,17 +33,11 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-
   Drive Movement = new Drive();
-  
 
   Intake mainIntake = new Intake();
 
-
-  ballIntake secIntake = new ballIntake();
-
-
-  //Neumatica
+  //NeumÃ¡tica
   Compressor compressor1 = new Compressor(0,PneumaticsModuleType.CTREPCM); //creas el objeto compresor para poder usarlo
   public final Solenoid piston1 = new Solenoid(PneumaticsModuleType.CTREPCM, 0); //declaracion del piston
   
@@ -55,29 +50,7 @@ public class Robot extends TimedRobot {
   boolean ePiston = false;
   double speed = 0;
   double getTurn = 0;
-
- 
-
-
   
-
-  boolean ButtonA = false;
-
-
-  boolean ButtonX = false;
-
-
-  //Constante de velocidad aditiva
-  
-
-  
-
-  
-
-  
-
-  
-
 
 
   /**
@@ -133,9 +106,6 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {}
-  //spin around at 50 km per hour 5 times to the right, then 5 times to the left. Fucking jump 50 meters up in the air and do 3 sommersaults before
-  //throwing itself out of the window.
-  
 
   @Override
   public void teleopInit() {
@@ -152,19 +122,19 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-    double speed = Constants.control1.getRawAxis(1);
-    double getTurn = Constants.control1.getRawAxis(4);
+
+    double speed = (Constants.control1.getRawAxis(1));
+    double getTurn = (Constants.control1.getRawAxis(4));
+
     boolean ButtonX = Constants.control1.getRawButton(4);
 
-    double motores = Constants.control1.getRawAxis(1);
-    double turn = Constants.control1.getRawAxis(4);
-
-
-    ButtonX = Constants.control1.getRawButton(4); //Checar ids de los botones
+    double motores = (Constants.control1.getRawAxis(1));
+    double turn = (Constants.control1.getRawAxis(4));
+    
     mainIntake.mIntake(ButtonX);
     
-    ButtonA = Constants.control1.getRawButton(1); //Asegurarnos de ver cuales botones vamos a usar
-    secIntake.mballIntake(ButtonA);
+    
+
 
     Movement.mDrive(speed, getTurn);
     ePiston = Constants.control1.getRawButton(3);
@@ -172,15 +142,15 @@ public class Robot extends TimedRobot {
     compressor1.enableDigital();
     piston1.set(ePiston);
 
-
+//     
 
   
 
   }
 
-  
+  }
 
-//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasi
+//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 
 public void variableOutput(){
