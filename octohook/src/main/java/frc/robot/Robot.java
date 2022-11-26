@@ -133,6 +133,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {}
+  //spin around at 50 km per hour 5 times to the right, then 5 times to the left. Fucking jump 50 meters up in the air and do 3 sommersaults before
+  //throwing itself out of the window.
   
 
   @Override
