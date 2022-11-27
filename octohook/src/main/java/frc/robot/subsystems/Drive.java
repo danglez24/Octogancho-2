@@ -47,8 +47,7 @@ public class Drive extends SubsystemBase {
 
 
   /** Creates a new ExampleSubsystem. */
-  public Drive() {
-  }
+  public Drive() {}
 
   public void mDrive(double speed, double getTurn){
 
@@ -65,8 +64,8 @@ public class Drive extends SubsystemBase {
 
     finalFR = (motorFR - turn);
     finalBR = (motorBR - turn);
-    finalFL = (-motorFL + turn);
-    finalBL = (-motorBL + turn);
+    finalFL = (turn - motorFL);
+    finalBL = (turn - motorBL);
     
 
 
@@ -78,17 +77,23 @@ public class Drive extends SubsystemBase {
 
    
   }
-  private double speedRamp (double currentSpeed, double targetSpeed)
-  {
+  
+  public void motoresAuto(double auto_finalFR, double auto_finalBR, 
+    double auto_finalFL, double auto_finalBL){
+      motorFrontRight.set(ControlMode.PercentOutput, auto_finalFR);
+      motorBackRight.set(ControlMode.PercentOutput, auto_finalBR);
+      motorFrontLeft.set(ControlMode.PercentOutput, auto_finalFL);
+      motorBackLeft.set(ControlMode.PercentOutput,  auto_finalBL);
+  }
+
+  private double speedRamp (double currentSpeed, double targetSpeed){
     if( Math.abs( (Math.abs(targetSpeed) - Math.abs(currentSpeed) ) ) < additiveSpeed) return targetSpeed;
     if( currentSpeed < targetSpeed ) return currentSpeed + additiveSpeed;
     else if( currentSpeed > targetSpeed ) return currentSpeed - additiveSpeed;
     return 0;
-  }
-
+    }
   @Override
   public void periodic() {
-   
     
   }
 

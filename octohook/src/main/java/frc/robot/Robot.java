@@ -17,8 +17,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.Constants;
+import frc.robot.Auto.Actions.AutoTimer;
 import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.boxIntake;
 
 
 
@@ -35,7 +36,9 @@ public class Robot extends TimedRobot {
 
   Drive Movement = new Drive();
 
-  Intake mainIntake = new Intake();
+  boxIntake mainIntake = new boxIntake();
+
+  AutoTimer mAutoTimer = new AutoTimer();
 
   //NeumÃ¡tica
   Compressor compressor1 = new Compressor(0,PneumaticsModuleType.CTREPCM); //creas el objeto compresor para poder usarlo
@@ -96,6 +99,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    mAutoTimer.autoRelativeTimeControl();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -105,7 +109,12 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    mAutoTimer.autoAbsoluteTimeControl();
+    
+    double Time = mAutoTimer.getAbsoluteTimer()-mAutoTimer.getRelativeTimer();
+
+  }
 
   @Override
   public void teleopInit() {
@@ -131,7 +140,7 @@ public class Robot extends TimedRobot {
     double motores = (Constants.control1.getRawAxis(1));
     double turn = (Constants.control1.getRawAxis(4));
     
-    mainIntake.mIntake(ButtonX);
+    mainIntake.mBoxIntake(ButtonX);
     
     
 
@@ -141,22 +150,20 @@ public class Robot extends TimedRobot {
 
     compressor1.enableDigital();
     piston1.set(ePiston);
-
-//     
+    
 
   
 
   }
 
-  }
+  
 
-//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 
 public void variableOutput(){
 
   SmartDashboard.putNumber("Giro", turn);
-  SmartDashboard.putNumber("MotorFR", finalFR);
+  SmartDashboard.putNumber("MotorFR", Drive.finalFR);
   SmartDashboard.putNumber("MotorBR", finalBR);
   SmartDashboard.putNumber("MotorFL", finalFL);
   SmartDashboard.putNumber("MotorBL", finalBL);

@@ -10,16 +10,16 @@ import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import frc.robot.Constants;
 
-public class Intake extends SubsystemBase{
+public class boxIntake extends SubsystemBase{
     //motores
     public TalonSRX intake1 = new TalonSRX(Constants.INT1constant);
     public TalonSRX intake2 = new TalonSRX(Constants.INT2constant);
 
     XboxController control1 = new XboxController(0);
     
-    public Intake(){}
+    public boxIntake(){}
 
-    public void mIntake(boolean getButton){
+    public void mBoxIntake(boolean getButton){
         boolean Intake = getButton;
 
         if(Intake == true){
