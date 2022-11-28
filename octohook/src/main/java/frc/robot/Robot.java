@@ -112,7 +112,14 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
     mAutoTimer.autoAbsoluteTimeControl();
     
-    double Time = mAutoTimer.getAbsoluteTimer()-mAutoTimer.getRelativeTimer();
+    double Time = mAutoTimer.getAbsoluteTimer()-mAutoTimer.getRelativeTimer(); //Inicia temporizador
+    //Aquí se puede echar todo el autónomo.
+    if(Time < 0.5){
+      
+    }
+    else if(Time > 0.6 && Time < 1.4){
+      //Llamas función del autonomo que hará. Faltan algunas acciones, pero es por si lo alcanzan a probar.
+    }
 
   }
 
