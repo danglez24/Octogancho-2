@@ -2,17 +2,17 @@ package frc.robot.Auto.Actions;
 
 import edu.wpi.first.wpilibj.Timer;
 
-public class AutoTimer{
+public class getTime{
   double absoluteTimer;
   double relativeTimer;
 
-  public void autoAbsoluteTimeControl(){
+  public void startInitTimer(){
     absoluteTimer = Timer.getFPGATimestamp();
   }
-  public void autoRelativeTimeControl(){
+  public void startRelativeTimer (){
     relativeTimer = Timer.getFPGATimestamp();
   }
-  public double getAbsoluteTimer(){
+  public double getInitTimer(){
     return absoluteTimer;
   }
   public double getRelativeTimer(){

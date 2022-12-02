@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.Compressor;
@@ -17,10 +18,14 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.Constants;
-import frc.robot.Auto.Actions.AutoTimer;
 import frc.robot.subsystems.Drive;
-import frc.robot.subsystems.boxIntake;
-
+import frc.robot.subsystems.ballIntake;
+import frc.robot.Auto.Actions.getTime;
+import frc.robot.Auto.Actions.Stop;
+import frc.robot.Auto.Actions.Left;
+import frc.robot.Auto.Actions.Right;
+import frc.robot.Auto.Actions.Forward;
+import frc.robot.Auto.Actions.Backward;
 
 
 /**
@@ -34,57 +39,40 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  //Imports
   Drive Movement = new Drive();
+  ballIntake ballIntake = new ballIntake();
 
-  boxIntake mainIntake = new boxIntake();
+  //Acciones del autónomo
 
-  AutoTimer mAutoTimer = new AutoTimer();
+  getTime AutoTimer = new getTime();
+  Stop stopAction = new Stop();
+  Forward moveFor = new Forward();
+  Backward moveBack = new Backward();
+  Right moveRight = new Right();
+  Left moveLeft = new Left();
+ 
 
   //NeumÃ¡tica
   Compressor compressor1 = new Compressor(0,PneumaticsModuleType.CTREPCM); //creas el objeto compresor para poder usarlo
   public final Solenoid piston1 = new Solenoid(PneumaticsModuleType.CTREPCM, 0); //declaracion del piston
   
-
-
-
-
   //Variables
-
+  
   boolean ePiston = false;
   double speed = 0;
   double getTurn = 0;
   
+  
 
-
-  /**
-   * This function is run when the robot is first started up and should be used for any
-   * initialization code.
-   */
   @Override
   public void robotInit() {
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-    // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     compressor1.enableDigital();
-    
-    
-
 
   }
-
-  /**
-   * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
-   * that you want ran during disabled, autonomous, teleoperated and test.
-   *
-   * <p>This runs after the mode specific periodic functions, but before LiveWindow and
-   * SmartDashboard integrated updating.
-   */
   @Override
   public void robotPeriodic() {
-    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
-    // commands, running already-scheduled commands, removing finished or interrupted commands,
-    // and running subsystem periodic() methods.  This must be called from the robot's periodic
-    // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
   }
 
@@ -99,7 +87,8 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    mAutoTimer.autoRelativeTimeControl();
+    
+    AutoTimer.getInitTimer();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -110,17 +99,15 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    mAutoTimer.autoAbsoluteTimeControl();
-    
-    double Time = mAutoTimer.getAbsoluteTimer()-mAutoTimer.getRelativeTimer(); //Inicia temporizador
-    //Aquí se puede echar todo el autónomo.
-    if(Time < 0.5){
-      
-    }
-    else if(Time > 0.6 && Time < 1.4){
-      //Llamas función del autonomo que hará. Faltan algunas acciones, pero es por si lo alcanzan a probar.
-    }
+    AutoTimer.getRelativeTimer();
 
+    double difTime = AutoTimer.getInitTimer()-AutoTimer.getRelativeTimer();
+
+    if (difTime < 1.5){
+      moveFor.moveForwardAction();
+       
+    }
+    else stopAction.stopAction();
   }
 
   @Override
@@ -144,10 +131,7 @@ public class Robot extends TimedRobot {
 
     boolean ButtonX = Constants.control1.getRawButton(4);
 
-    double motores = (Constants.control1.getRawAxis(1));
-    double turn = (Constants.control1.getRawAxis(4));
-    
-    mainIntake.mBoxIntake(ButtonX);
+    ballIntake.mballIntake(ButtonX);
     
     
 
@@ -156,24 +140,17 @@ public class Robot extends TimedRobot {
     ePiston = Constants.control1.getRawButton(3);
 
     compressor1.enableDigital();
-    piston1.set(ePiston);
-    
+    piston1.set(ePiston);  
 
   
 
-  }
+}
 
-  
-
+//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 
 public void variableOutput(){
 
-  SmartDashboard.putNumber("Giro", turn);
-  SmartDashboard.putNumber("MotorFR", Drive.finalFR);
-  SmartDashboard.putNumber("MotorBR", finalBR);
-  SmartDashboard.putNumber("MotorFL", finalFL);
-  SmartDashboard.putNumber("MotorBL", finalBL);
   
 }
 
