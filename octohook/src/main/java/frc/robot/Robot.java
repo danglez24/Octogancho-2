@@ -25,7 +25,11 @@ import frc.robot.Auto.Actions.Stop;
 import frc.robot.Auto.Actions.Left;
 import frc.robot.Auto.Actions.Right;
 import frc.robot.Auto.Actions.Forward;
+import frc.robot.Auto.Actions.ActBallIntake;
+import frc.robot.Auto.Actions.ActBoxIntake;
 import frc.robot.Auto.Actions.Backward;
+import frc.robot.Auto.Actions.DisBallIntake;
+import frc.robot.Auto.Actions.DisBoxIntake;
 
 
 /**
@@ -51,6 +55,11 @@ public class Robot extends TimedRobot {
   Backward moveBack = new Backward();
   Right moveRight = new Right();
   Left moveLeft = new Left();
+  ActBallIntake ballOn = new ActBallIntake();
+  DisBallIntake ballOff = new DisBallIntake();
+  ActBoxIntake boxOn = new ActBoxIntake();
+  DisBoxIntake boxOff = new DisBoxIntake();
+
  
 
   //NeumÃ¡tica
@@ -107,7 +116,13 @@ public class Robot extends TimedRobot {
       moveFor.moveForwardAction();
        
     }
-    else stopAction.stopAction();
+    else if(difTime > 1.6 && difTime < 3){
+      moveBack.moveBackwardAction();
+    }
+    else if(difTime > 3.1 && difTime < 4){
+
+    }
+    
   }
 
   @Override
