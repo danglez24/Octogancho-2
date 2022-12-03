@@ -53,8 +53,8 @@ public class Robot extends TimedRobot {
   Stop stopAction = new Stop();
   Forward moveFor = new Forward();
   Backward moveBack = new Backward();
-  Right moveRight = new Right();
-  Left moveLeft = new Left();
+  Right turnRight = new Right();
+  Left turnLeft = new Left();
   ActBallIntake ballOn = new ActBallIntake();
   DisBallIntake ballOff = new DisBallIntake();
   ActBoxIntake boxOn = new ActBoxIntake();
@@ -108,21 +108,26 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    AutoTimer.getRelativeTimer();
+    /*AutoTimer.getRelativeTimer();
 
     double difTime = AutoTimer.getInitTimer()-AutoTimer.getRelativeTimer();
 
-    if (difTime < 1.5){
+    if (difTime < 1){
       moveFor.moveForwardAction();
-       
     }
-    else if(difTime > 1.6 && difTime < 3){
+    else if(difTime > 1.1 && difTime < 3){
       moveBack.moveBackwardAction();
     }
-    else if(difTime > 3.1 && difTime < 4){
-
+    else if(difTime > 3.1 && difTime < 3.4){
+      turnRight.moveRightAction();
     }
-    
+    else if(difTime > 3.5 && difTime < 4){
+      moveBack.moveBackwardAction();
+    }
+    else{
+      stopAction.stopAction();
+    }
+*/
   }
 
   @Override
@@ -144,14 +149,14 @@ public class Robot extends TimedRobot {
     double speed = (Constants.control1.getRawAxis(1));
     double getTurn = (Constants.control1.getRawAxis(4));
 
+    Movement.mDrive(speed, getTurn);
+
+
     boolean ButtonX = Constants.control1.getRawButton(4);
 
     ballIntake.mballIntake(ButtonX);
     
     
-
-
-    Movement.mDrive(speed, getTurn);
     ePiston = Constants.control1.getRawButton(3);
 
     compressor1.enableDigital();

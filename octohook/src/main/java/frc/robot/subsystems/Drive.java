@@ -62,8 +62,8 @@ public class Drive extends SubsystemBase {
     motorFL = speedRamp(motorFL, motores);
     motorBL = speedRamp(motorBL, motores);
 
-    finalFR = (motorFR - turn);
-    finalBR = (motorBR - turn);
+    finalFR = (motorFR + turn);
+    finalBR = (motorBR + turn);
     finalFL = (turn - motorFL);
     finalBL = (turn - motorBL);
     
@@ -92,6 +92,7 @@ public class Drive extends SubsystemBase {
     else if( currentSpeed > targetSpeed ) return currentSpeed - additiveSpeed;
     return 0;
     }
+    
   @Override
   public void periodic() {
     
