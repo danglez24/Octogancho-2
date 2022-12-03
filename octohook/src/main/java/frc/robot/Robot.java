@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.ballIntake;
+import frc.robot.subsystems.boxIntake;
 import frc.robot.Auto.Actions.getTime;
 import frc.robot.Auto.Actions.Stop;
 import frc.robot.Auto.Actions.Left;
@@ -46,6 +47,7 @@ public class Robot extends TimedRobot {
   //Imports
   Drive Movement = new Drive();
   ballIntake ballIntake = new ballIntake();
+  boxIntake boxIntake = new boxIntake();
 
   //Acciones del autónomo
 
@@ -112,16 +114,16 @@ public class Robot extends TimedRobot {
 
     double difTime = AutoTimer.getInitTimer()-AutoTimer.getRelativeTimer();
 
-    if (difTime < 1){
+    if (difTime < 0.5){
       moveFor.moveForwardAction();
     }
-    else if(difTime > 1.1 && difTime < 3){
+    else if(difTime > 0.6 && difTime < 1.1){
       moveBack.moveBackwardAction();
     }
-    else if(difTime > 3.1 && difTime < 3.4){
+    else if(difTime > 1.2 && difTime < 1.5){
       turnRight.moveRightAction();
     }
-    else if(difTime > 3.5 && difTime < 4){
+    else if(difTime > 1.6 && difTime < 2.1){
       moveBack.moveBackwardAction();
     }
     else{
@@ -152,10 +154,15 @@ public class Robot extends TimedRobot {
     Movement.mDrive(speed, getTurn);
 
 
-    boolean ButtonX = Constants.control1.getRawButton(4);
+    boolean ButtonY = Constants.control1.getRawButton(4);
 
-    ballIntake.mballIntake(ButtonX);
+    ballIntake.mballIntake(ButtonY);
+
     
+    boolean ButtonA = Constants.control1.getRawButton(1);
+
+    boxIntake.mBoxIntake(ButtonA);
+
     
     ePiston = Constants.control1.getRawButton(3);
 

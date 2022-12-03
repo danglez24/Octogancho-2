@@ -7,6 +7,6 @@ public class Backward {
     Drive mAutoDrive = new Drive();
 
     public void moveBackwardAction(){
-        mAutoDrive.motoresAuto(-0.6, -0.6, 0.6, 0.6);
+        mAutoDrive.motoresAuto(-0.5, -0.5, 0.5, 0.5);
     }
 }

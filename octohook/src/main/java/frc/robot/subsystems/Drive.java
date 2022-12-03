@@ -55,8 +55,7 @@ public class Drive extends SubsystemBase {
     double turn = getTurn;
     
     
-    
-
+  
     motorFR = speedRamp(motorFR, motores);
     motorBR = speedRamp(motorFR, motores);
     motorFL = speedRamp(motorFL, motores);
@@ -87,9 +86,12 @@ public class Drive extends SubsystemBase {
   }
 
   private double speedRamp (double currentSpeed, double targetSpeed){
-    if( Math.abs( (Math.abs(targetSpeed) - Math.abs(currentSpeed) ) ) < additiveSpeed) return targetSpeed;
-    if( currentSpeed < targetSpeed ) return currentSpeed + additiveSpeed;
-    else if( currentSpeed > targetSpeed ) return currentSpeed - additiveSpeed;
+    if( Math.abs( (Math.abs(targetSpeed) - Math.abs(currentSpeed) ) ) < additiveSpeed) 
+      return targetSpeed;
+    if( currentSpeed < targetSpeed ) 
+      return currentSpeed + additiveSpeed;
+    else if( currentSpeed > targetSpeed ) 
+      return currentSpeed - additiveSpeed;
     return 0;
     }
     
