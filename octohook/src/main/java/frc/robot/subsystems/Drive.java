@@ -64,8 +64,8 @@ public class Drive extends SubsystemBase {
 
     finalFR = (motorFR + turn);
     finalBR = (motorBR + turn);
-    finalFL = (turn - motorFL);
-    finalBL = (turn - motorBL);
+    finalFL = (motorFL - turn);
+    finalBL = (motorBL - turn);
     
 
 
