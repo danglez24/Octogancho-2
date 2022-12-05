@@ -49,6 +49,7 @@ public class Robot extends TimedRobot {
   ballIntake ballIntake = new ballIntake();
   boxIntake boxIntake = new boxIntake();
 
+
   //Acciones del autónomo
 
   getTime AutoTimer = new getTime();
@@ -148,21 +149,23 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
 
 
-    double speed = (Constants.control1.getRawAxis(1));
-    double getTurn = (Constants.control1.getRawAxis(4));
+    double speed = Constants.control1.getRawAxis(1);
+    double getTurn = Constants.control1.getRawAxis(4);
 
     Movement.mDrive(speed, getTurn);
 
 
     boolean ButtonY = Constants.control1.getRawButton(4);
 
-    ballIntake.mballIntake(ButtonY);
-
+    ballIntake.mBallIntake(ButtonY);
     
     boolean ButtonA = Constants.control1.getRawButton(1);
 
     boxIntake.mBoxIntake(ButtonA);
 
+    boolean ButtonB = Constants.control1.getRawButton(2);
+
+    boxIntake.mBoxOutake(ButtonB);
     
     ePiston = Constants.control1.getRawButton(3);
 

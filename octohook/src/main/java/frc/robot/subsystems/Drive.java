@@ -61,10 +61,10 @@ public class Drive extends SubsystemBase {
     motorFL = speedRamp(motorFL, motores);
     motorBL = speedRamp(motorBL, motores);
 
-    finalFR = (motorFR + turn);
-    finalBR = (motorBR + turn);
-    finalFL = (motorFL - turn);
-    finalBL = (motorBL - turn);
+    finalFR = (motorFR - turn);
+    finalBR = (motorBR - turn);
+    finalFL = (motorFL + turn);
+    finalBL = (motorBL + turn);
     
 
 

@@ -6,7 +6,7 @@ public class ActBallIntake {
     ballIntake mActBallIntake = new ballIntake();
 
     public void ballIntakeActivate(){
-        mActBallIntake.mballIntake(true);
+        mActBallIntake.mBallIntake(true);
     }
     
 }

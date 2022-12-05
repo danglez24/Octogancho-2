@@ -18,7 +18,7 @@ public class ballIntake extends SubsystemBase{
     
     public ballIntake() {}
 
-    public void mballIntake(boolean getButton){
+    public void mBallIntake(boolean getButton){
         boolean secIntake = getButton;
 
         if(secIntake == true){
@@ -29,6 +29,19 @@ public class ballIntake extends SubsystemBase{
             ballIntake.set(ControlMode.PercentOutput,0);
         }
 
+    }
+
+    //por si acaso
+    public void mBallOutake(boolean getButton){
+        boolean secOutake = getButton;
+
+        if(secOutake == true){
+            ballIntake.set(ControlMode.PercentOutput,Constants.ballOutakeSpeed);
+
+        }
+        else{
+            ballIntake.set(ControlMode.PercentOutput,0);
+        }
     }
     
 }

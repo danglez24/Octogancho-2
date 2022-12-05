@@ -32,5 +32,18 @@ public class boxIntake extends SubsystemBase{
         }
 
     }
+
+    public void mBoxOutake(boolean getButton){
+        boolean boxOutake = getButton;
+
+        if(boxOutake == true){
+            intake1.set(ControlMode.PercentOutput, Constants.outakeSpeed);
+            intake2.set(ControlMode.PercentOutput, Constants.outakeSpeed);
+        }
+        else{
+            intake1.set(ControlMode.PercentOutput, 0);
+            intake2.set(ControlMode.PercentOutput, 0);
+        }
+    }
     
 }
