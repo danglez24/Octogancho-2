@@ -22,12 +22,13 @@ public class autoTest {
     DisBallIntake ballOff = new DisBallIntake();
     ActBoxIntake boxOn = new ActBoxIntake();
     DisBoxIntake boxOff = new DisBoxIntake();
+    //getTime AutoTime = new getTime();
+    //double difTime = AutoTime.getInitTimer() - AutoTime.getRelativeTimer();
   
 
-    public void finalTestAction(){
-        getTime AutoTime = new getTime();
-        double difTime = AutoTime.getInitTimer() - AutoTime.getRelativeTimer();
-
+    public void finalTestAction(double difTime){
+        //getTime AutoTime = new getTime();
+        //double difTimer = AutoTime.getInitTimer() - AutoTime.getRelativeTimer();
         if (difTime < 1){
             moveFor.moveForwardAction();
           }

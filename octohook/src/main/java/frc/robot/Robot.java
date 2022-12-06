@@ -119,16 +119,18 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
     //Contador
     AutoTimer.getRelativeTimer();
-    //double difTime = AutoTimer.getInitTimer() - AutoTimer.getRelativeTimer();
+    double difTime = AutoTimer.getInitTimer() - AutoTimer.getRelativeTimer();
 
-    if(AutoTimer.getInitTimer()-AutoTimer.getRelativeTimer() < 15){
-      mAutoTest.finalTestAction();
+    mAutoTest.finalTestAction(difTime);
+    
+    /*if((AutoTimer.getInitTimer() - AutoTimer.getRelativeTimer()) < 15){
+      
     }
 
     else{
       stopAction.stopAction();
     }
-/*
+    
     //Acciones
     if (difTime < 1){
       moveFor.moveForwardAction();
@@ -209,9 +211,6 @@ public class Robot extends TimedRobot {
 
 
 public void variableOutput(){}
-
-  
-
 
   @Override
   public void testInit() {
