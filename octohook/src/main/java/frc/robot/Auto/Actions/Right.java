@@ -7,6 +7,6 @@ public class Right {
     Drive mAutoDrive = new Drive();
 
     public void moveRightAction(){
-        mAutoDrive.motoresAuto(-0.5, -0.5, -0.5, -0.5);
+        mAutoDrive.motoresAuto(-0.4, -0.4, -0.4, -0.4);
     }
 }

@@ -17,8 +17,10 @@ public class boxIntake extends SubsystemBase{
 
     XboxController control1 = new XboxController(0);
     
+    //constructor
     public boxIntake(){}
 
+    //Intake de cajas
     public void mBoxIntake(boolean getButton){
         boolean Intake = getButton;
 
@@ -33,6 +35,7 @@ public class boxIntake extends SubsystemBase{
 
     }
 
+    //Para expulsar cajas
     public void mBoxOutake(boolean getButton){
         boolean boxOutake = getButton;
 

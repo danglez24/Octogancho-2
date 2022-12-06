@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.cameraserver.CameraServer;
+
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -22,6 +24,7 @@ import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.ballIntake;
 import frc.robot.subsystems.boxIntake;
 import frc.robot.Auto.Actions.getTime;
+import frc.robot.Auto.Modes.autoTest;
 import frc.robot.Auto.Actions.Stop;
 import frc.robot.Auto.Actions.Left;
 import frc.robot.Auto.Actions.Right;
@@ -52,6 +55,8 @@ public class Robot extends TimedRobot {
 
   //Acciones del autónomo
 
+  autoTest mAutoTest = new autoTest();
+
   getTime AutoTimer = new getTime();
   Stop stopAction = new Stop();
   Forward moveFor = new Forward();
@@ -65,12 +70,11 @@ public class Robot extends TimedRobot {
 
  
 
-  //NeumÃ¡tica
+  //Neumática
   Compressor compressor1 = new Compressor(0,PneumaticsModuleType.CTREPCM); //creas el objeto compresor para poder usarlo
   public final Solenoid piston1 = new Solenoid(PneumaticsModuleType.CTREPCM, 0); //declaracion del piston
   
   //Variables
-  
   boolean ePiston = false;
   double speed = 0;
   double getTurn = 0;
@@ -81,6 +85,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     m_robotContainer = new RobotContainer();
     compressor1.enableDigital();
+    CameraServer.startAutomaticCapture();
 
   }
   @Override
@@ -99,7 +104,8 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    
+
+    //Inicia contador de autónomo
     AutoTimer.getInitTimer();
 
     // schedule the autonomous command (example)
@@ -111,26 +117,47 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    /*AutoTimer.getRelativeTimer();
+    //Contador
+    AutoTimer.getRelativeTimer();
+    //double difTime = AutoTimer.getInitTimer() - AutoTimer.getRelativeTimer();
 
-    double difTime = AutoTimer.getInitTimer()-AutoTimer.getRelativeTimer();
+    if(AutoTimer.getInitTimer()-AutoTimer.getRelativeTimer() < 15){
+      mAutoTest.finalTestAction();
+    }
 
-    if (difTime < 0.5){
-      moveFor.moveForwardAction();
-    }
-    else if(difTime > 0.6 && difTime < 1.1){
-      moveBack.moveBackwardAction();
-    }
-    else if(difTime > 1.2 && difTime < 1.5){
-      turnRight.moveRightAction();
-    }
-    else if(difTime > 1.6 && difTime < 2.1){
-      moveBack.moveBackwardAction();
-    }
     else{
       stopAction.stopAction();
     }
-*/
+/*
+    //Acciones
+    if (difTime < 1){
+      moveFor.moveForwardAction();
+    }
+    else if(difTime > 1.4 && difTime < 2){
+      moveBack.moveBackwardAction();
+    }
+    else if(difTime > 2.5 && difTime < 3){
+      turnRight.moveRightAction();
+    }
+    else if(difTime > 3.3 && difTime < 3.7){
+      turnLeft.moveLeftAction();
+    }
+    else if(difTime > 3.8 && difTime < 4.3){
+      ballOn.ballIntakeActivate();
+    }
+    else if(difTime > 4.4 && difTime < 4.7){
+      ballOff.ballIntakeDisable();
+    }
+    else if(difTime > 4.8 && difTime < 5.3){
+      boxOn.boxIntakeActivate();
+    }
+    else if(difTime > 5.4 && difTime < 5.8){
+      boxOff.boxIntakeDisable();
+    }
+    else{
+      stopAction.stopAction();
+    }*/
+
   }
 
   @Override
@@ -148,41 +175,43 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
-
+    //Drive
     double speed = Constants.control1.getRawAxis(1);
     double getTurn = Constants.control1.getRawAxis(4);
 
     Movement.mDrive(speed, getTurn);
 
-
+    //Intake de pelotas
     boolean ButtonY = Constants.control1.getRawButton(4);
 
     ballIntake.mBallIntake(ButtonY);
-    
+
+    //Intake de cajas
     boolean ButtonA = Constants.control1.getRawButton(1);
 
     boxIntake.mBoxIntake(ButtonA);
 
+    //Expulsor de cajas
     boolean ButtonB = Constants.control1.getRawButton(2);
 
     boxIntake.mBoxOutake(ButtonB);
-    
-    ePiston = Constants.control1.getRawButton(3);
 
-    compressor1.enableDigital();
+    //Pistones
+    ePiston = Constants.control1.getRawButton(3); //Button X
+
     piston1.set(ePiston);  
 
   
 
 }
 
-//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 
-public void variableOutput(){
+
+public void variableOutput(){}
 
   
-}
+
 
   @Override
   public void testInit() {

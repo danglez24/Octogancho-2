@@ -20,7 +20,10 @@ public final class Constants {
     public static final int BALLSconstant = 5;
     public static final int INT1constant = 6;
     public static final int INT2constant = 7;
+
     public static final XboxController control1 = new XboxController(0);
+    public static final XboxController control2 = new XboxController(1);
+    
     public static final double intakeSpeed = 0.5;
     public static final double outakeSpeed = -0.5;
     public static final double ballIntakeSpeed = 0.7;

@@ -18,10 +18,10 @@ import frc.robot.Constants;
 public class Drive extends SubsystemBase {
 
     //Motores
-    public TalonSRX motorFrontRight = new TalonSRX(Constants.FRconstant);
-    public TalonSRX motorBackRight = new TalonSRX(Constants.BRconstant);
-    public TalonSRX motorFrontLeft = new TalonSRX(Constants.FLconstant);
-    public TalonSRX motorBackLeft = new TalonSRX(Constants.BLconstant);
+    public TalonSRX motorFrontRight = new TalonSRX(Constants.FRconstant); 
+    public TalonSRX motorBackRight = new TalonSRX(Constants.BRconstant); 
+    public TalonSRX motorFrontLeft = new TalonSRX(Constants.FLconstant); 
+    public TalonSRX motorBackLeft = new TalonSRX(Constants.BLconstant); 
   
     public TalonSRX motortest = new TalonSRX(0);
 
@@ -31,8 +31,8 @@ public class Drive extends SubsystemBase {
    //Variables
     double turn = 0;
 
-  //Constante de velocidad aditiva
-  final double additiveSpeed = 0.04;
+   //Constante de velocidad aditiva
+   final double additiveSpeed = 0.04;
   
 
     double motorFR = 0;
@@ -49,10 +49,10 @@ public class Drive extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public Drive() {}
 
-  public void mDrive(double speed, double getTurn){
+  public void mDrive(double getFixedspeed, double getFixedTurn){
 
-    double motores = speed;
-    double turn = getTurn;
+    double motores = getFixedTurn;
+    double speed = getFixedspeed;
     
     
   
@@ -61,10 +61,10 @@ public class Drive extends SubsystemBase {
     motorFL = speedRamp(motorFL, motores);
     motorBL = speedRamp(motorBL, motores);
 
-    finalFR = (motorFR - turn);
-    finalBR = (motorBR - turn);
-    finalFL = (motorFL + turn);
-    finalBL = (motorBL + turn);
+    finalFR = (motorFR - speed);
+    finalBR = (motorBR - speed);
+    finalFL = (motorFL + speed);
+    finalBL = (motorBL + speed);
     
 
 
@@ -76,7 +76,8 @@ public class Drive extends SubsystemBase {
 
    
   }
-  
+
+  //Motores para autónomo 
   public void motoresAuto(double auto_finalFR, double auto_finalBR, 
     double auto_finalFL, double auto_finalBL){
       motorFrontRight.set(ControlMode.PercentOutput, auto_finalFR);
@@ -85,6 +86,7 @@ public class Drive extends SubsystemBase {
       motorBackLeft.set(ControlMode.PercentOutput,  auto_finalBL);
   }
 
+  //Speedramp
   private double speedRamp (double currentSpeed, double targetSpeed){
     if( Math.abs( (Math.abs(targetSpeed) - Math.abs(currentSpeed) ) ) < additiveSpeed) 
       return targetSpeed;

@@ -16,8 +16,10 @@ public class ballIntake extends SubsystemBase{
 
     XboxController control1 = new XboxController(0);
     
+    //Constructor
     public ballIntake() {}
 
+    //Intake de pelotas
     public void mBallIntake(boolean getButton){
         boolean secIntake = getButton;
 
@@ -31,7 +33,7 @@ public class ballIntake extends SubsystemBase{
 
     }
 
-    //por si acaso
+    //por si acaso, para expulsar pelotas
     public void mBallOutake(boolean getButton){
         boolean secOutake = getButton;
 
