@@ -117,12 +117,12 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    //Contador
+    //Contador relativo para completar el temporizador
     AutoTimer.getRelativeTimer();
     double difTime = AutoTimer.getInitTimer() - AutoTimer.getRelativeTimer();
 
     mAutoTest.finalTestAction(difTime);
-    
+
     /*if((AutoTimer.getInitTimer() - AutoTimer.getRelativeTimer()) < 15){
       
     }
