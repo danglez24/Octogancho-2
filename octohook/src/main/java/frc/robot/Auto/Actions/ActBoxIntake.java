@@ -6,7 +6,7 @@ public class ActBoxIntake {
     boxIntake mActBoxIntake = new boxIntake();
 
     public void boxIntakeActivate(){
-        mActBoxIntake.mBoxIntake(true);
+        mActBoxIntake.getBox(1.0);
     }
     
 }

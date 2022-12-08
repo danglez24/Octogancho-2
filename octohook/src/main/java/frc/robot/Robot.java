@@ -47,10 +47,13 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
-  //Imports
+  //Subsistemas
   Drive Movement = new Drive();
   ballIntake ballIntake = new ballIntake();
   boxIntake boxIntake = new boxIntake();
+
+  //control
+  XboxController controlT = new XboxController(0);
 
 
   //Acciones del autónomo
@@ -68,6 +71,7 @@ public class Robot extends TimedRobot {
   ActBoxIntake boxOn = new ActBoxIntake();
   DisBoxIntake boxOff = new DisBoxIntake();
 
+
  
 
   //Neumática
@@ -78,6 +82,7 @@ public class Robot extends TimedRobot {
   boolean ePiston = false;
   double speed = 0;
   double getTurn = 0;
+  boolean invert = false;
   
   
 
@@ -123,7 +128,7 @@ public class Robot extends TimedRobot {
 
     mAutoTest.finalTestAction(difTime);
 
-    /*if((AutoTimer.getInitTimer() - AutoTimer.getRelativeTimer()) < 15){
+    if((AutoTimer.getInitTimer() - AutoTimer.getRelativeTimer()) < 15){
       
     }
 
@@ -154,11 +159,11 @@ public class Robot extends TimedRobot {
       boxOn.boxIntakeActivate();
     }
     else if(difTime > 5.4 && difTime < 5.8){
-      boxOff.boxIntakeDisable();
+      boxOff.boxOut();
     }
     else{
       stopAction.stopAction();
-    }*/
+    }
 
   }
 
@@ -177,6 +182,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
+    boolean BButton = Constants.control1.getRawButton(1);
+    Movement.toggle(BButton);
+    
+
     //Drive
     double speed = Constants.control1.getRawAxis(1);
     double getTurn = Constants.control1.getRawAxis(4);
@@ -184,31 +193,39 @@ public class Robot extends TimedRobot {
     Movement.mDrive(speed, getTurn);
 
     //Intake de pelotas
-    boolean ButtonY = Constants.control1.getRawButton(4);
+    boolean ButtonY = Constants.control2.getRawButton(4);
 
     ballIntake.mBallIntake(ButtonY);
 
-    //Intake de cajas
-    boolean ButtonA = Constants.control1.getRawButton(1);
+    //Outtake Pelotas
+    boolean ButtonA = Constants.control2.getRawButton(1);
+    ballIntake.mBallOutake(ButtonA);
 
-    boxIntake.mBoxIntake(ButtonA);
+    //Voltear frente
+    
+    
+
+    //Intake de cajas
+    /*boolean ButtonA = controlT.getRawButton(1);
+    //Constants.control1.getRawButton(1);
+
+    boxIntake.mBoxIntake(ButtonA);*/
 
     //Expulsor de cajas
-    boolean ButtonB = Constants.control1.getRawButton(2);
+    //double LTrigger = Constants.control1.getRawAxis(2);
+    //double RTrigger = Constants.control1.getRawAxis(3);
 
-    boxIntake.mBoxOutake(ButtonB);
+    //boxIntake.mBoxOutake(RTrigger, LTrigger);
+    boxIntake.getBox(Constants.control2.getRawAxis(5));
 
     //Pistones
-    ePiston = Constants.control1.getRawButton(3); //Button X
+    ePiston = Constants.control2.getRawButton(3); //Button X
 
     piston1.set(ePiston);  
-
-  
-
 }
-
-
-
+/*
+sope
+*/
 
 public void variableOutput(){}
 

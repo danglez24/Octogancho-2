@@ -3,10 +3,10 @@ package frc.robot.Auto.Actions;
 import frc.robot.subsystems.boxIntake;
 
 public class DisBoxIntake {
-    boxIntake mDisBoxIntake = new boxIntake();
+    boxIntake mActBoxOut = new boxIntake();
 
-    public void boxIntakeDisable(){
-        mDisBoxIntake.mBoxIntake(false);
+    public void boxOut(){
+        mActBoxOut.getBox(0);
     }
     
 }

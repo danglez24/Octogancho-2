@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 
 import java.util.FormatFlagsConversionMismatchException;
@@ -16,25 +17,21 @@ import frc.robot.Constants;
 
 
 public class Drive extends SubsystemBase {
-
-    //Motores
-    public TalonSRX motorFrontRight = new TalonSRX(Constants.FRconstant); 
-    public TalonSRX motorBackRight = new TalonSRX(Constants.BRconstant); 
-    public TalonSRX motorFrontLeft = new TalonSRX(Constants.FLconstant); 
-    public TalonSRX motorBackLeft = new TalonSRX(Constants.BLconstant); 
-  
-    public TalonSRX motortest = new TalonSRX(0);
-
-    //Control
-   
+//ID de los motores
+    int FRID = 0;
+    int BRID = 0;
+    int FLID = 0;
+    int BLID = 0;    
 
    //Variables
     double turn = 0;
+    boolean invert = false;
+    boolean BButton = false;
 
    //Constante de velocidad aditiva
    final double additiveSpeed = 0.04;
   
-
+  //variable
     double motorFR = 0;
     double motorBR = 0;
     double motorFL = 0;
@@ -45,9 +42,42 @@ public class Drive extends SubsystemBase {
     double finalFL = 0;
     double finalBL = 0;
 
+     
+    //Motores
+    public TalonSRX motorFrontRight = new TalonSRX(FRID); 
+    public TalonSRX motorBackRight = new TalonSRX(BRID); 
+    public TalonSRX motorFrontLeft = new TalonSRX(FLID); 
+    public TalonSRX motorBackLeft = new TalonSRX(BLID); 
+    
+
 
   /** Creates a new ExampleSubsystem. */
   public Drive() {}
+
+  
+  //Invertir frente
+  public void toggle (boolean BButton){
+    boolean invert = false; 
+    if(BButton = true){
+      invert = !invert;
+    }
+  }
+  public void invert (boolean invert){
+    if (invert == false){
+      FRID = 1;
+      BRID = 2;
+      FLID = 3;
+      BLID = 4;
+    }
+    else if(invert == true){
+      FRID = 4;
+      BRID = 3;
+      FLID = 2;
+      BLID = 1;
+    }
+  }
+  
+
 
   public void mDrive(double getFixedspeed, double getFixedTurn){
 
@@ -72,7 +102,7 @@ public class Drive extends SubsystemBase {
     motorBackRight.set(ControlMode.PercentOutput, finalBR);
     motorFrontLeft.set(ControlMode.PercentOutput, finalFL);
     motorBackLeft.set(ControlMode.PercentOutput,  finalBL);
-    motortest.set(ControlMode.PercentOutput, 0);
+  
 
    
   }
@@ -86,6 +116,15 @@ public class Drive extends SubsystemBase {
       motorBackLeft.set(ControlMode.PercentOutput,  auto_finalBL);
   }
 
+  //sensibilidad
+  public double deadZone (double joystick_axis){
+    if (joystick_axis > 0.15) 
+      return joystick_axis;
+    else if (joystick_axis < 0.15)
+      return 0;
+    return 0;
+  }
+
   //Speedramp
   private double speedRamp (double currentSpeed, double targetSpeed){
     if( Math.abs( (Math.abs(targetSpeed) - Math.abs(currentSpeed) ) ) < additiveSpeed) 
@@ -96,6 +135,8 @@ public class Drive extends SubsystemBase {
       return currentSpeed - additiveSpeed;
     return 0;
     }
+
+   
     
   @Override
   public void periodic() {

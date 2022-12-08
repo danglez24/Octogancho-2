@@ -51,7 +51,7 @@ public class autoTest {
             boxOn.boxIntakeActivate();
           }
           else if(difTime > 5.4 && difTime < 5.8){
-            boxOff.boxIntakeDisable();
+            boxOff.boxOut();
           }
           else{
             stopAction.stopAction();

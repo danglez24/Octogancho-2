@@ -21,7 +21,7 @@ public class boxIntake extends SubsystemBase{
     public boxIntake(){}
 
     //Intake de cajas
-    public void mBoxIntake(boolean getButton){
+    /*public void mBoxIntake(boolean getButton){
         boolean Intake = getButton;
 
         if(Intake == true){
@@ -33,14 +33,36 @@ public class boxIntake extends SubsystemBase{
             intake2.set(ControlMode.PercentOutput,0);
         }
 
-    }
+    }*/
 
     //Para expulsar cajas
-    public void mBoxOutake(boolean getButton){
-        boolean boxOutake = getButton;
+   /* public void mBoxOutake(double getRTrigger, double getLTrigger){
+        double boxOutake = getRTrigger;
+        double boxIntake = getLTrigger;
 
-        if(boxOutake == true){
+        if( boxOutake > 1 && boxIntake < 1){
             intake1.set(ControlMode.PercentOutput, Constants.outakeSpeed);
+            intake2.set(ControlMode.PercentOutput, -Constants.outakeSpeed);
+        }
+        else if( boxIntake > 1 && boxOutake < 1){
+            intake1.set(ControlMode.PercentOutput, -Constants.outakeSpeed);
+            intake2.set(ControlMode.PercentOutput, Constants.outakeSpeed);  
+        }
+        else{
+            intake1.set(ControlMode.PercentOutput, 0);
+            intake2.set(ControlMode.PercentOutput, 0);
+        }
+    }*/
+
+    public void getBox(double speedBox){
+        
+
+        if(speedBox > 0.15){
+            intake1.set(ControlMode.PercentOutput, Constants.outakeSpeed);
+            intake2.set(ControlMode.PercentOutput, -Constants.outakeSpeed);
+        }
+        else if(speedBox < -0.15){
+            intake1.set(ControlMode.PercentOutput, -Constants.outakeSpeed);
             intake2.set(ControlMode.PercentOutput, Constants.outakeSpeed);
         }
         else{
