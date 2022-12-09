@@ -6,13 +6,13 @@ public class getTime{
   double absoluteTimer;
   double relativeTimer;
 
-  public void startInitTimer(){
+  public void autoAbsoluteTimeControl(){
     absoluteTimer = Timer.getFPGATimestamp();
   }
-  public void startRelativeTimer (){
+  public void autoRelativeTimeControl(){
     relativeTimer = Timer.getFPGATimestamp();
   }
-  public double getInitTimer(){
+  public double getAbsoluteTimer(){
     return absoluteTimer;
   }
   public double getRelativeTimer(){

@@ -26,7 +26,7 @@ public final class Constants {
     
     public static final double intakeSpeed = 0.5;
     public static final double outakeSpeed = -0.5;
-    public static final double ballIntakeSpeed = 0.8;
-    public static final double ballOutakeSpeed = -0.8;
+    public static final double ballIntakeSpeed = 0.744616569656301;
+    public static final double ballOutakeSpeed = -0.7436920416501;
 
 }

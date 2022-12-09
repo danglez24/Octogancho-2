@@ -60,7 +60,7 @@ public class Robot extends TimedRobot {
 
   autoTest mAutoTest = new autoTest();
 
-  getTime AutoTimer = new getTime();
+  getTime mAutoTimer = new getTime();
   Stop stopAction = new Stop();
   Forward moveFor = new Forward();
   Backward moveBack = new Backward();
@@ -108,10 +108,9 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
-    //Inicia contador de autónomo
-    AutoTimer.getInitTimer();
+    
+mAutoTimer.getRelativeTimer();
+   
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -123,11 +122,11 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     //Contador relativo para completar el temporizador
-    AutoTimer.getRelativeTimer();
-    double difTime = AutoTimer.getInitTimer() - AutoTimer.getRelativeTimer();
-       
+    mAutoTimer.getAbsoluteTimer();
+    double difTime = mAutoTimer.getRelativeTimer() - mAutoTimer.getAbsoluteTimer();
+       SmartDashboard.putNumber("Active time", difTime);
     //Acciones
-    if (difTime < .5){
+    /*if (difTime < .5){
       moveFor.moveForwardAction();
     }
     else if(difTime > .5 && difTime < 2){
@@ -138,17 +137,16 @@ public class Robot extends TimedRobot {
     }
     else if(difTime > 3 && difTime < 4){
       turnLeft.moveLeftAction();
+      ballOn.ballIntakeActivate();
     }
-    else if(difTime > 3.1 && difTime < 3.9){
-    ballOn.ballIntakeActivate();
-   }
 
     else if(difTime > 4 && difTime < 5){
       moveBack.moveBackwardAction();
+      ballOn.ballIntakeActivate();
     }
     else{
       stopAction.stopAction();
-    }
+    }*/
 
   }
     
