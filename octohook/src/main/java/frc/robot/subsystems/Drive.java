@@ -18,10 +18,7 @@ import frc.robot.Constants;
 
 public class Drive extends SubsystemBase {
 //ID de los motores
-    int FRID = 0;
-    int BRID = 0;
-    int FLID = 0;
-    int BLID = 0;    
+    
 
    //Variables
     double turn = 0;
@@ -44,24 +41,24 @@ public class Drive extends SubsystemBase {
 
      
     //Motores
-    public TalonSRX motorFrontRight = new TalonSRX(FRID); 
-    public TalonSRX motorBackRight = new TalonSRX(BRID); 
-    public TalonSRX motorFrontLeft = new TalonSRX(FLID); 
-    public TalonSRX motorBackLeft = new TalonSRX(BLID); 
     
 
 
   /** Creates a new ExampleSubsystem. */
   public Drive() {}
-
+  int FRID = 1;
+    int BRID = 2;
+    int FLID = 3;
+    int BLID = 4;    
+  
+  public TalonSRX motorFrontRight = new TalonSRX(FRID); 
+  public TalonSRX motorBackRight = new TalonSRX(BRID); 
+  public TalonSRX motorFrontLeft = new TalonSRX(FLID); 
+  public TalonSRX motorBackLeft = new TalonSRX(BLID); 
+  
   
   //Invertir frente
-  public void toggle (boolean BButton){
-    boolean invert = false; 
-    if(BButton = true){
-      invert = !invert;
-    }
-  }
+ 
   public void invert (boolean invert){
     if (invert == false){
       FRID = 1;
@@ -118,9 +115,9 @@ public class Drive extends SubsystemBase {
 
   //sensibilidad
   public double deadZone (double joystick_axis){
-    if (joystick_axis > 0.15) 
+    if (joystick_axis > 0.2) 
       return joystick_axis;
-    else if (joystick_axis < 0.15)
+    else if (joystick_axis < 0.2)
       return 0;
     return 0;
   }

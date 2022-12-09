@@ -125,47 +125,35 @@ public class Robot extends TimedRobot {
     //Contador relativo para completar el temporizador
     AutoTimer.getRelativeTimer();
     double difTime = AutoTimer.getInitTimer() - AutoTimer.getRelativeTimer();
-
-    mAutoTest.finalTestAction(difTime);
-
-    if((AutoTimer.getInitTimer() - AutoTimer.getRelativeTimer()) < 15){
-      
-    }
-
-    else{
-      stopAction.stopAction();
-    }
-    
+       
     //Acciones
-    if (difTime < 1){
+    if (difTime < .5){
       moveFor.moveForwardAction();
     }
-    else if(difTime > 1.4 && difTime < 2){
-      moveBack.moveBackwardAction();
-    }
-    else if(difTime > 2.5 && difTime < 3){
-      turnRight.moveRightAction();
-    }
-    else if(difTime > 3.3 && difTime < 3.7){
-      turnLeft.moveLeftAction();
-    }
-    else if(difTime > 3.8 && difTime < 4.3){
-      ballOn.ballIntakeActivate();
-    }
-    else if(difTime > 4.4 && difTime < 4.7){
-      ballOff.ballIntakeDisable();
-    }
-    else if(difTime > 4.8 && difTime < 5.3){
+    else if(difTime > .5 && difTime < 2){
       boxOn.boxIntakeActivate();
     }
-    else if(difTime > 5.4 && difTime < 5.8){
-      boxOff.boxOut();
+    else if(difTime > 2 && difTime < 3){
+      moveBack.moveBackwardAction();
+    }
+    else if(difTime > 3 && difTime < 4){
+      turnLeft.moveLeftAction();
+    }
+    else if(difTime > 3.1 && difTime < 3.9){
+    ballOn.ballIntakeActivate();
+   }
+
+    else if(difTime > 4 && difTime < 5){
+      moveBack.moveBackwardAction();
     }
     else{
       stopAction.stopAction();
     }
 
   }
+    
+  
+ /**/ 
 
   @Override
   public void teleopInit() {
@@ -177,13 +165,21 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
   }
-
+  public void toggle (boolean BButton){
+    boolean invert = false; 
+    if(BButton = true){
+      invert = !invert;
+    }
+  }
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
 
     boolean BButton = Constants.control1.getRawButton(1);
-    Movement.toggle(BButton);
+    toggle(BButton);
+    
+    
+    Movement.invert(invert);
     
 
     //Drive
@@ -199,7 +195,7 @@ public class Robot extends TimedRobot {
 
     //Outtake Pelotas
     boolean ButtonA = Constants.control2.getRawButton(1);
-    ballIntake.mBallOutake(ButtonA);
+    ballIntake.mBallIntake(ButtonA);
 
     //Voltear frente
     
