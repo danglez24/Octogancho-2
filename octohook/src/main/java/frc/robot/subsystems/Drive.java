@@ -59,7 +59,13 @@ public class Drive extends SubsystemBase {
   
   //Invertir frente
  
-  public void invert (boolean invert){
+  public void invert (boolean BButton){
+      boolean invert = false; 
+      BButton = invert;
+      if(BButton = true){
+        invert = !invert;
+      }
+    
     if (invert == false){
       FRID = 1;
       BRID = 2;

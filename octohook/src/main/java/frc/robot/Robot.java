@@ -82,7 +82,7 @@ public class Robot extends TimedRobot {
   boolean ePiston = false;
   double speed = 0;
   double getTurn = 0;
-  boolean invert = false;
+  
   
   
 
@@ -108,8 +108,8 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    
-mAutoTimer.getRelativeTimer();
+    mAutoTimer.autoRelativeTimeControl();
+
    
 
     // schedule the autonomous command (example)
@@ -122,8 +122,11 @@ mAutoTimer.getRelativeTimer();
   @Override
   public void autonomousPeriodic() {
     //Contador relativo para completar el temporizador
-    mAutoTimer.getAbsoluteTimer();
-    double difTime = mAutoTimer.getRelativeTimer() - mAutoTimer.getAbsoluteTimer();
+    mAutoTimer.autoAbsoluteTimeControl();
+
+    double tiempoRel = mAutoTimer.getRelativeTimer();
+    
+    double difTime = tiempoRel - mAutoTimer.getAbsoluteTimer();
        SmartDashboard.putNumber("Active time", difTime);
     //Acciones
     /*if (difTime < .5){
@@ -163,21 +166,14 @@ mAutoTimer.getRelativeTimer();
       m_autonomousCommand.cancel();
     }
   }
-  public void toggle (boolean BButton){
-    boolean invert = false; 
-    if(BButton = true){
-      invert = !invert;
-    }
-  }
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
 
     boolean BButton = Constants.control1.getRawButton(1);
-    toggle(BButton);
     
     
-    Movement.invert(invert);
+    Movement.invert(BButton);
     
 
     //Drive
@@ -193,7 +189,10 @@ mAutoTimer.getRelativeTimer();
 
     //Outtake Pelotas
     boolean ButtonA = Constants.control2.getRawButton(1);
+    boolean ButtonB = Constants.control2.getRawButton(2);
+
     ballIntake.mBallIntake(ButtonA);
+    ballIntake.mBallOutake(ButtonB);
 
     //Voltear frente
     
