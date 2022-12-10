@@ -26,7 +26,7 @@ public class Drive extends SubsystemBase {
     boolean BButton = false;
 
    //Constante de velocidad aditiva
-   final double additiveSpeed = 0.02;
+   final double additiveSpeed = 0.04;
   
   //variable
     double motorFR = 0;

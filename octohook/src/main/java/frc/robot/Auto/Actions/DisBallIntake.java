@@ -6,6 +6,6 @@ public class DisBallIntake {
     ballIntake mDisBallIntake = new ballIntake();
 
     public void ballIntakeDisable(){
-        mDisBallIntake.mBallIntake(false);
+        mDisBallIntake.mBallOutake(false);
     }
 }

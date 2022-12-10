@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.ballIntake;
+import frc.robot.subsystems.ballOuttake;
 import frc.robot.subsystems.boxIntake;
 import frc.robot.Auto.Actions.getTime;
 import frc.robot.Auto.Modes.autoTest;
@@ -34,6 +35,7 @@ import frc.robot.Auto.Actions.ActBoxIntake;
 import frc.robot.Auto.Actions.Backward;
 import frc.robot.Auto.Actions.DisBallIntake;
 import frc.robot.Auto.Actions.DisBoxIntake;
+import frc.robot.subsystems.ballOuttake;
 
 
 /**
@@ -50,6 +52,7 @@ public class Robot extends TimedRobot {
   //Subsistemas
   Drive Movement = new Drive();
   ballIntake ballIntake = new ballIntake();
+  ballOuttake ballOuttake = new ballOuttake();
   boxIntake boxIntake = new boxIntake();
 
   //control
@@ -126,10 +129,10 @@ public class Robot extends TimedRobot {
 
     double tiempoRel = mAutoTimer.getRelativeTimer();
     
-    double difTime = tiempoRel - mAutoTimer.getAbsoluteTimer();
+    double difTime = mAutoTimer.getAbsoluteTimer() - tiempoRel;
        SmartDashboard.putNumber("Active time", difTime);
     //Acciones
-    /*if (difTime < .5){
+    /*if (difTime > 0 && difTime < .5){
       moveFor.moveForwardAction();
     }
     else if(difTime > .5 && difTime < 2){
@@ -183,15 +186,12 @@ public class Robot extends TimedRobot {
     Movement.mDrive(speed, getTurn);
 
     //Intake de pelotas
-    boolean ButtonY = Constants.control2.getRawButton(4);
-
-    ballIntake.mBallIntake(ButtonY);
 
     //Outtake Pelotas
-    boolean ButtonA = Constants.control2.getRawButton(1);
-    boolean ButtonB = Constants.control2.getRawButton(2);
+    boolean ButtonA = Constants.control2.getRawButton(2);
+    boolean ButtonB = Constants.control2.getRawButton(1);
 
-    ballIntake.mBallIntake(ButtonA);
+    ballOuttake.mBallIntake(ButtonA);
     ballIntake.mBallOutake(ButtonB);
 
     //Voltear frente
