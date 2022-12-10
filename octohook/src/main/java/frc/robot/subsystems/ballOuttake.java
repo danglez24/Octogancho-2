@@ -11,6 +11,8 @@ public class ballOuttake {
     public TalonSRX ballIntake = new TalonSRX(Constants.BALLSconstant);
 
     XboxController control1 = new XboxController(0);
+
+    public ballOuttake () {}
     //Intake de pelotas
     public void mBallIntake(boolean getButton){
         boolean firIntake = getButton;

@@ -115,7 +115,7 @@ public class Robot extends TimedRobot {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     //Inicia contador de autónomo
-    AutoTimer.getRelativeTimer();
+    AutoTimer.autoRelativeTimeControl();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -132,29 +132,21 @@ public class Robot extends TimedRobot {
 
     
 
-    /*if((AutoTimer.getInitTimer() - AutoTimer.getRelativeTimer()) < 15){
-      mAutoTest.finalTestAction(difTime);
-    }
-
-    else{
-      stopAction.stopAction();
-    }
-    */
     //Acciones
-    if (difTime < 0.5){
+    if (difTime < 2){
       moveFor.moveForwardAction();
     }
-    else if(difTime > 0.5 && difTime < 2){
+    else if(difTime > 2 && difTime < 4){
       boxOn.boxIntakeActivate();
     }
-    else if(difTime > 2 && difTime < 3){
+    else if(difTime > 4 && difTime < 6){
       moveBack.moveBackwardAction();
     }
-    else if(difTime > 3 && difTime < 3.7){
+    else if(difTime > 6 && difTime < 8){
       turnLeft.moveLeftAction();
       ballOn.ballIntakeActivate();
     }
-    else if(difTime > 3.8 && difTime < 4.5){
+    else if(difTime > 8 && difTime < 10){
       moveBack.moveBackwardAction();
       ballOn.ballIntakeActivate();
     }
