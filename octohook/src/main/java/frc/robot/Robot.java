@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.ballIntake;
+import frc.robot.subsystems.ballOuttake;
 import frc.robot.subsystems.boxIntake;
 import frc.robot.Auto.Actions.getTime;
 import frc.robot.Auto.Modes.autoTest;
@@ -34,6 +35,7 @@ import frc.robot.Auto.Actions.ActBoxIntake;
 import frc.robot.Auto.Actions.Backward;
 import frc.robot.Auto.Actions.DisBallIntake;
 import frc.robot.Auto.Actions.DisBoxIntake;
+import frc.robot.subsystems.ballOuttake;
 
 
 /**
@@ -50,6 +52,7 @@ public class Robot extends TimedRobot {
   //Subsistemas
   Drive Movement = new Drive();
   ballIntake ballIntake = new ballIntake();
+  ballOuttake ballOuttake = new ballOuttake();
   boxIntake boxIntake = new boxIntake();
 
   //control
@@ -83,7 +86,7 @@ public class Robot extends TimedRobot {
   boolean ePiston = false;
   double speed = 0;
   double getTurn = 0;
-  boolean invert = false;
+  
   
   
 
@@ -171,7 +174,6 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
   }
-
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
@@ -183,9 +185,6 @@ public class Robot extends TimedRobot {
     Movement.mDrive(speed, getTurn);
 
     //Intake de pelotas
-    boolean ButtonY = Constants.control2.getRawButton(4);
-
-    ballIntake.mBallIntake(ButtonY);
 
     //Outtake Pelotas
     boolean ButtonA = Constants.control2.getRawButton(1);

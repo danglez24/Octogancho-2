@@ -6,6 +6,7 @@ public class getTime{
   double absoluteTimer;
   double relativeTimer;
 
+
   public void autoAbsoluteTimeControl(){
     absoluteTimer = Timer.getFPGATimestamp();
   }

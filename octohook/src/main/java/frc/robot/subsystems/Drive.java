@@ -26,7 +26,7 @@ public class Drive extends SubsystemBase {
     boolean BButton = false;
 
    //Constante de velocidad aditiva
-   final double additiveSpeed = 0.02;
+   final double additiveSpeed = 0.04;
   
   //variable
     double motorFR = 0;
@@ -59,7 +59,13 @@ public class Drive extends SubsystemBase {
   
   //Invertir frente
  
-  public void invert (boolean invert){
+  public void invert (boolean BButton){
+      boolean invert = false; 
+      BButton = invert;
+      if(BButton = true){
+        invert = !invert;
+      }
+    
     if (invert == false){
       FRID = 1;
       BRID = 2;

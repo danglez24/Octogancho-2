@@ -19,19 +19,7 @@ public class ballIntake extends SubsystemBase{
     //Constructor
     public ballIntake() {}
 
-    //Intake de pelotas
-    public void mBallIntake(boolean getButton){
-        boolean secIntake = getButton;
-
-        if(secIntake == true){
-            ballIntake.set(ControlMode.PercentOutput,Constants.ballIntakeSpeed);
-        }
-
-        else{
-            ballIntake.set(ControlMode.PercentOutput,0);
-        }
-
-    }
+    
 
     //por si acaso, para expulsar pelotas
     public void mBallOutake(boolean getButton){
