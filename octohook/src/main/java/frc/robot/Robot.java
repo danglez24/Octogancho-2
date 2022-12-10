@@ -54,13 +54,14 @@ public class Robot extends TimedRobot {
 
   //control
   XboxController controlT = new XboxController(0);
+  
 
 
   //Acciones del autónomo
 
   autoTest mAutoTest = new autoTest();
 
-  getTime mAutoTimer = new getTime();
+  getTime   AutoTimer = new getTime();
   Stop stopAction = new Stop();
   Forward moveFor = new Forward();
   Backward moveBack = new Backward();
@@ -108,9 +109,10 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    
-mAutoTimer.getRelativeTimer();
-   
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+
+    //Inicia contador de autónomo
+    AutoTimer.getRelativeTimer();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -122,36 +124,42 @@ mAutoTimer.getRelativeTimer();
   @Override
   public void autonomousPeriodic() {
     //Contador relativo para completar el temporizador
-    mAutoTimer.getAbsoluteTimer();
-    double difTime = mAutoTimer.getRelativeTimer() - mAutoTimer.getAbsoluteTimer();
-       SmartDashboard.putNumber("Active time", difTime);
+    AutoTimer.getAbsoluteTimer();
+    double difTime = AutoTimer.getRelativeTimer() - AutoTimer.getAbsoluteTimer();
+
+    
+
+    /*if((AutoTimer.getInitTimer() - AutoTimer.getRelativeTimer()) < 15){
+      mAutoTest.finalTestAction(difTime);
+    }
+
+    else{
+      stopAction.stopAction();
+    }
+    */
     //Acciones
-    /*if (difTime < .5){
+    if (difTime < 0.5){
       moveFor.moveForwardAction();
     }
-    else if(difTime > .5 && difTime < 2){
+    else if(difTime > 0.5 && difTime < 2){
       boxOn.boxIntakeActivate();
     }
     else if(difTime > 2 && difTime < 3){
       moveBack.moveBackwardAction();
     }
-    else if(difTime > 3 && difTime < 4){
+    else if(difTime > 3 && difTime < 3.7){
       turnLeft.moveLeftAction();
       ballOn.ballIntakeActivate();
     }
-
-    else if(difTime > 4 && difTime < 5){
+    else if(difTime > 3.8 && difTime < 4.5){
       moveBack.moveBackwardAction();
       ballOn.ballIntakeActivate();
     }
     else{
       stopAction.stopAction();
-    }*/
+    }
 
   }
-    
-  
- /**/ 
 
   @Override
   public void teleopInit() {
@@ -163,22 +171,10 @@ mAutoTimer.getRelativeTimer();
       m_autonomousCommand.cancel();
     }
   }
-  public void toggle (boolean BButton){
-    boolean invert = false; 
-    if(BButton = true){
-      invert = !invert;
-    }
-  }
+
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-
-    boolean BButton = Constants.control1.getRawButton(1);
-    toggle(BButton);
-    
-    
-    Movement.invert(invert);
-    
 
     //Drive
     double speed = Constants.control1.getRawAxis(1);
@@ -193,7 +189,7 @@ mAutoTimer.getRelativeTimer();
 
     //Outtake Pelotas
     boolean ButtonA = Constants.control2.getRawButton(1);
-    ballIntake.mBallIntake(ButtonA);
+    ballIntake.mBallOutake(ButtonA);
 
     //Voltear frente
     
