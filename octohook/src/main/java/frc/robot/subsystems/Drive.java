@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import java.util.FormatFlagsConversionMismatchException;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import frc.robot.Constants;
@@ -49,13 +50,7 @@ public class Drive extends SubsystemBase {
   int FRID = 1;
     int BRID = 2;
     int FLID = 3;
-    int BLID = 4;    
-  
-  public TalonSRX motorFrontRight = new TalonSRX(FRID); 
-  public TalonSRX motorBackRight = new TalonSRX(BRID); 
-  public TalonSRX motorFrontLeft = new TalonSRX(FLID); 
-  public TalonSRX motorBackLeft = new TalonSRX(BLID); 
-  
+    int BLID = 4;   
   
   //Invertir frente
  
@@ -79,6 +74,12 @@ public class Drive extends SubsystemBase {
       BLID = 1;
     }
   }
+
+  public TalonSRX motorFrontRight = new TalonSRX(FRID); 
+  public TalonSRX motorBackRight = new TalonSRX(BRID); 
+  public TalonSRX motorFrontLeft = new TalonSRX(FLID); 
+  public TalonSRX motorBackLeft = new TalonSRX(BLID);
+  //public VictorSPX motor1 = VictorSPX(7); 
   
 
 

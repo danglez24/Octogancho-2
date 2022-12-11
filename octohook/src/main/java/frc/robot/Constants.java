@@ -19,7 +19,7 @@ public final class Constants {
     public static final int BLconstant = 4;
     public static final int BALLSconstant = 5;
     public static final int INT1constant = 6;
-    public static final int INT2constant = 7;
+    public static final int INT2constant = 8;
 
     public static final XboxController control1 = new XboxController(0);
     public static final XboxController control2 = new XboxController(1);
